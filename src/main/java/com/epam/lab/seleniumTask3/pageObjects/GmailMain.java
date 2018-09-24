@@ -1,11 +1,8 @@
 package com.epam.lab.seleniumTask3.pageObjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GmailMain extends GmailPageObject {
     @FindBy(css = "div.z0")
@@ -35,7 +32,7 @@ public class GmailMain extends GmailPageObject {
     @FindBy(css = "div.aoD.hl")
     private WebElement emailArea;
 
-    @FindBy(xpath = "//div[@class='vh']/span[@class='aT']")
+    @FindBy(css = "div.vh > span.aT")
     private WebElement notification;
 
     public GmailMain(WebDriver driver) {

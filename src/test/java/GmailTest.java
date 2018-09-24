@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GmailTest {
     private int wait;
+    private String url;
     private String email;
     private String password;
     private String correctEmail;
@@ -19,31 +20,27 @@ public class GmailTest {
     private String emailSubject;
     private String emailText;
 
-
     @BeforeClass
     public void preparing() {
         PropertyParser propertyParser = new PropertyParser("src/main/resources/driver.properties");
         wait = propertyParser.getWaitTime();
         System.setProperty("webdriver.chrome.driver", propertyParser.getDriverPath());
         XMLParser xmlParser = new XMLParser("src/main/resources/signIn.xml");
+        url = xmlParser.getName("url");
         email = xmlParser.getName("email");
-        System.out.println(email);
         password = xmlParser.getName("password");
-        System.out.println(password);
         XMLParser xmlParserEmail = new XMLParser("src/main/resources/email.xml");
         correctEmail = xmlParserEmail.getName("correct");
-        System.out.println(correctEmail);
         incorrectEmail = xmlParserEmail.getName("incorrect");
-        System.out.println(incorrectEmail);
-        emailSubject = /*xmlParser.getName("subject");*/ "Test";
-        emailText = /*xmlParser.getName("text");*/"Test";
+        emailSubject = xmlParserEmail.getName("subject");
+        emailText = xmlParserEmail.getName("text");
     }
 
     @Test
     public void sendEmail() {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(wait, TimeUnit.SECONDS);
-        driver.get("https://gmail.com");
+        driver.get(url);
         GmailSignIn signIn = new GmailSignIn(driver);
         signIn.enterEmail(email);
         signIn.enterPassword(password);
