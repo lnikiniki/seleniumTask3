@@ -8,21 +8,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 abstract class GmailPageObject {
-    private WebDriver driver;
+    WebDriver driver;
     private int wait;
 
-    GmailPageObject(WebDriver driver){
+    GmailPageObject(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver, this);
-        PropertyParser propertyParser = new PropertyParser("src/main/resources/driver.properties");
-        wait = propertyParser.getWaitTime();
+        PageFactory.initElements(new CustomFieldDecorator(driver), this);
+        wait = new PropertyParser("src/main/resources/driver.properties").getWaitTime();
     }
 
-    void waitUntilVisible(WebElement element){
+    void waitUntilVisible(WebElement element) {
         new WebDriverWait(driver, wait).until(ExpectedConditions.visibilityOf(element));
     }
 
-    void waitUntilClickable(WebElement element){
+    void waitUntilClickable(WebElement element) {
         new WebDriverWait(driver, wait).until(ExpectedConditions.elementToBeClickable(element));
     }
 }

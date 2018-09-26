@@ -1,36 +1,38 @@
 package com.epam.lab.seleniumTask3.pageObjects;
 
+import com.epam.lab.seleniumTask3.webElements.Button;
+import com.epam.lab.seleniumTask3.webElements.Input;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class GmailMain extends GmailPageObject {
     @FindBy(css = "div.z0")
-    private WebElement composeButton;
+    private Button composeButton;
 
     @FindBy(name = "to")
-    private WebElement emailTo;
+    private Input emailTo;
 
     @FindBy(name = "subjectbox")
-    private WebElement subjectInput;
+    private Input subjectInput;
 
     @FindBy(css = "div[role = 'textbox']")
-    private WebElement textArea;
+    private Input textArea;
 
     @FindBy(css = "td.gU.Up")
-    private WebElement submitButton;
+    private Button submitButton;
 
     @FindBy(css = "div[role = 'alertdialog']")
     private WebElement alertDialog;
 
     @FindBy(name = "ok")
-    private WebElement alertSubmitButton;
+    private Button alertSubmitButton;
 
     @FindBy(css = "div.vM")
-    private WebElement emailAddressDeleteButton;
+    private Button emailAddressDeleteButton;
 
     @FindBy(css = "div.aoD.hl")
-    private WebElement emailArea;
+    private Input emailArea;
 
     @FindBy(css = "div.vh > span.aT")
     private WebElement notification;
@@ -41,9 +43,9 @@ public class GmailMain extends GmailPageObject {
 
     public void sendEmail(String email, String subject, String text) {
         composeButton.click();
-        emailTo.sendKeys(email);
-        subjectInput.sendKeys(subject);
-        textArea.sendKeys(text);
+        emailTo.print(email);
+        subjectInput.print(subject);
+        textArea.print(text);
         submitSend();
     }
 
@@ -53,7 +55,7 @@ public class GmailMain extends GmailPageObject {
 
     public void changeEmail(String email) {
         deleteAddress();
-        emailTo.sendKeys(email);
+        emailTo.print(email);
     }
 
     public boolean alertDialogIsPresent() {
@@ -66,6 +68,8 @@ public class GmailMain extends GmailPageObject {
 
     private void deleteAddress() {
         emailArea.sendKeys(" ");
+        emailAddressDeleteButton.waitUntilVisible(driver);
+        emailAddressDeleteButton.waitUntilClickable(driver);
         emailAddressDeleteButton.click();
     }
 
