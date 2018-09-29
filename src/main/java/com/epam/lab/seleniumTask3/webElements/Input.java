@@ -8,7 +8,7 @@ public class Input extends Element {
     }
 
     public void print(String text) {
-        element.clear();
-        element.sendKeys(text);
+        super.clear();
+        super.sendKeys(text);
     }
 }

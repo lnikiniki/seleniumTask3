@@ -24,4 +24,5 @@ abstract class GmailPageObject {
     void waitUntilClickable(WebElement element) {
         new WebDriverWait(driver, wait).until(ExpectedConditions.elementToBeClickable(element));
     }
+
 }

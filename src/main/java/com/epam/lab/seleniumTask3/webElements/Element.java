@@ -15,10 +15,6 @@ public abstract class Element {
         wait = new PropertyParser("src/main/resources/driver.properties").getWaitTime();
     }
 
-    public void click() {
-        element.click();
-    }
-
     public void sendKeys(CharSequence... charSequences) {
         element.sendKeys(charSequences);
     }
@@ -27,7 +23,7 @@ public abstract class Element {
         return element.isDisplayed();
     }
 
-    public void clear() {
+    void clear() {
         element.clear();
     }
 

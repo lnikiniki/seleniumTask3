@@ -5,6 +5,8 @@ import com.epam.lab.seleniumTask3.webElements.Input;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GmailMain extends GmailPageObject {
     @FindBy(css = "div.z0")
@@ -17,7 +19,7 @@ public class GmailMain extends GmailPageObject {
     private Input subjectInput;
 
     @FindBy(css = "div[role = 'textbox']")
-    private Input textArea;
+    private Input emailBody;
 
     @FindBy(css = "td.gU.Up")
     private Button submitButton;
@@ -32,33 +34,40 @@ public class GmailMain extends GmailPageObject {
     private Button emailAddressDeleteButton;
 
     @FindBy(css = "div.aoD.hl")
-    private Input emailArea;
+    private Input emailInputArea;
 
     @FindBy(css = "div.vh > span.aT")
     private WebElement notification;
+
+    @FindBy(xpath = "//*[@id='link_undo' and @role='link']")
+    private WebElement newn;
 
     public GmailMain(WebDriver driver) {
         super(driver);
     }
 
-    public void sendEmail(String email, String subject, String text) {
+    public void composeButtonClick(){
         composeButton.click();
+    }
+
+    public void printRecipient(String email){
         emailTo.print(email);
+    }
+
+    public void printSubject(String subject){
         subjectInput.print(subject);
-        textArea.print(text);
-        submitSend();
+    }
+
+    public void printEmailBody(String text){
+        emailBody.print(text);
     }
 
     public void submitSend() {
         submitButton.click();
     }
 
-    public void changeEmail(String email) {
-        deleteAddress();
-        emailTo.print(email);
-    }
-
     public boolean alertDialogIsPresent() {
+        waitUntilVisible(alertDialog);
         return alertDialog.isDisplayed();
     }
 
@@ -66,15 +75,22 @@ public class GmailMain extends GmailPageObject {
         alertSubmitButton.click();
     }
 
-    private void deleteAddress() {
-        emailArea.sendKeys(" ");
+    public void makeDeleteButtonActive(){
+        emailInputArea.sendKeys(" ");
+    }
+
+    public void deleteAddress() {
         emailAddressDeleteButton.waitUntilVisible(driver);
         emailAddressDeleteButton.waitUntilClickable(driver);
         emailAddressDeleteButton.click();
     }
 
-    public boolean checkEmail() {
+    public boolean checkEmailNotificationIsPresent() {
         waitUntilVisible(notification);
         return notification.isDisplayed();
+    }
+
+    public void waitToSend(){
+        new WebDriverWait(driver, 30).until(ExpectedConditions.invisibilityOf(newn));
     }
 }

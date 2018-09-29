@@ -22,15 +22,37 @@ public class GmailSignIn extends GmailPageObject {
         super(driver);
     }
 
-    public void enterEmail(String email) {
+//    public void enterEmail(String email) {
+//        emailInput.print(email);
+//        nextButton.click();
+//    }
+//
+//    public void enterPassword(String password) {
+//        passwordInput.sendKeys(password);
+//        passwordNextButton.waitUntilVisible(driver);
+//        passwordNextButton.waitUntilClickable(driver);
+//        passwordNextButton.click();
+//    }
+
+    public void printEmail(String email){
         emailInput.print(email);
+    }
+
+    public void clickNextButton(){
         nextButton.click();
     }
 
-    public void enterPassword(String password) {
+    public void printPassword(String password){
         passwordInput.sendKeys(password);
+    }
+
+    public void clickPasswordNextButton(){
         passwordNextButton.waitUntilVisible(driver);
         passwordNextButton.waitUntilClickable(driver);
         passwordNextButton.click();
+    }
+
+    public void openPage(){
+        driver.get("https://gmail.com");
     }
 }
