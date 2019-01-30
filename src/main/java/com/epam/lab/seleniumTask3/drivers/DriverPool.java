@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DriverPool {
 
-    private ThreadLocal<WebDriver> localDriver = new ThreadLocal<>() {
+    private ThreadLocal<WebDriver> localDriver = new ThreadLocal<WebDriver>() {
         @Override
         protected WebDriver initialValue() {
             WebDriver chrome = new ChromeDriver();
@@ -22,11 +22,6 @@ public class DriverPool {
             WebDriver driver = get();
             if (driver != null) driver.close();
             super.remove();
-        }
-
-        @Override
-        public void set(WebDriver value) {
-            throw new UnsupportedOperationException();
         }
     };
 
